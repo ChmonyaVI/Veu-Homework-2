@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #3</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        display: inline-block;
+        border: 2px solid red;
+        padding: 20px;
+      }
+      .element__image {
+        width: 300px;
+        height: 200px;
+      }
+      .element__title {
+        font-size: 30px;
+        margin-left: 130px;
+      }
+      .correct-word {
+        border: 1px solid green;
+        padding: 2px;
+        display: inline-block;
+        margin-top: 5px;
+      }
+      .inCorrect-word {
+        border: 1px solid red;
+        padding: 2px;
+        display: inline-block;
+        margin-top: 5px;
+      }
+      .button-two {
+        margin-left: 20px;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task3">
+        <div class="container">
+          <img class="element__image" src="./task3/table.png" alt="" />
+          <div class="element__title">Table</div>
+          <label>Ваш перевод: <input type="text" v-model="translateWord" /></label><br />
+          <button type="submit" style="margin-top: 5px" @click="checkTheWord" class="button">Проверить</button>
+          <button type="submit" style="margin-top: 5px" @click="clearInp" class="button-two">Очистить поле ввода</button
+          ><br />
+          <div class="correct-word" v-if="isCorrect == true">Правильно!</div>
+          <div class="inCorrect-word" v-if="isCorrect == false">Не правильно!</div>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+      const task3 = createApp({
+        data() {
+          return {
+            translateWord: null,
+            isCorrect: null,
+          };
+        },
+        methods: {
+          checkTheWord() {
+            if (!this.translateWord) return console.log("Ошибка ввода!");
+            if (this.translateWord === "стол" || this.translateWord === "стіл") {
+              this.isCorrect = true;
+            } else {
+              this.isCorrect = false;
+            }
+          },
+          clearInp() {
+            this.translateWord = "";
+          },
+        },
+        computed: {},
+      });
+
+      task3.mount("#task3");
+    </script>
+  </body>
+</html>

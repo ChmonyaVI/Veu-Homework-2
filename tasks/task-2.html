@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #2</title>
+  </head>
+  <body>
+    <style>
+      .title {
+        font-size: 24px;
+      }
+      .image__item,
+      .image__item1,
+      .image__item2 {
+        width: 150px;
+        height: 150px;
+      }
+      .backgoround__business {
+        position: relative;
+        background-image: url("./task2/business.png");
+        background-repeat: no-repeat;
+        padding-bottom: 300px;
+      }
+      .backgoround__clouds {
+        position: relative;
+        background-image: url("./task2/clouds.jpg");
+        background-repeat: no-repeat;
+        padding-bottom: 300px;
+      }
+      .position1 {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        top: 10%;
+        left: 5%;
+      }
+      .position2 {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        top: 10%;
+        left: 15%;
+      }
+    </style>
+
+    <div class="wrapper">
+      <div id="task2">
+        <h2>Task 2</h2>
+        <select v-model="optionsClass">
+          <option value="1">Choose class</option>
+          <option value="2">Business</option>
+          <option value="3">Economy</option>
+        </select>
+        <template v-if="handleSubmitBusiness()">
+          <h2 class="title">Business Class</h2>
+          <div class="backgoround__business">
+            <img class="image__item1 position1" @click="showCognac" src="./task2/newspaper.png" alt="" />
+            <img class="image__item2 position2" @click="showNewspaper" src="./task2/cognac.png" alt="" />
+          </div>
+          <div v-if="showBlockCognac"><p>Would you like another snack?</p></div>
+          <div v-if="showBlockNewspaper"
+            ><p>Would you like another Cognac?</p>
+            <button type="submit" @click="takeSnacks" class="button">Yes, please.</button>
+          </div>
+          <div v-if="enjoyBusiness">Enjoy! <br /><img class="image__item" src="./task2/chips.png" alt="" /></div>
+        </template>
+        <template v-if="handleSubmitEconomy()">
+          <h2 class="title">Economy Class</h2>
+          <div class="backgoround__clouds">
+            <img class="image__item1 position1" @click="showCognac" src="./task2/beer.png" alt="" />
+            <img class="image__item2 position2" @click="showNewspaper" src="./task2/chips.png" alt="" />
+          </div>
+        </template>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task2 = createApp({
+        data() {
+          return {
+            optionsClass: null,
+            showBlockCognac: false,
+            showBlockNewspaper: false,
+            enjoyBusiness: false,
+          };
+        },
+        methods: {
+          handleSubmitBusiness() {
+            return this.optionsClass === "2";
+          },
+          handleSubmitEconomy() {
+            return this.optionsClass === "3";
+          },
+          showCognac() {
+            this.showBlockCognac = true;
+            this.showBlockNewspaper = false;
+            this.enjoyBusiness = false;
+          },
+          showNewspaper() {
+            this.showBlockCognac = false;
+            this.showBlockNewspaper = true;
+            this.enjoyBusiness = false;
+          },
+          takeSnacks() {
+            return (this.enjoyBusiness = true);
+          },
+        },
+        computed: {},
+      });
+
+      task2.mount("#task2");
+    </script>
+  </body>
+</html>

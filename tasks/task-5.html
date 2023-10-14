@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #5</title>
+  </head>
+  <body>
+    <style>
+      .img {
+        width: 50px;
+        height: 50px;
+      }
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .block {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 10px;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task5">
+        <div class="container">
+          <div v-for="item in siteList" :key="item.id">
+            <div class="link__block">
+              <div class="block">
+                <img :src="item.imgSrc" class="img" />
+                <div class="links">
+                  <div>{{item.firstLink}}</div>
+                  <div>{{item.secondLink}}</div>
+                </div>
+              </div>
+              <div style="margin-bottom: 10px" class="title">{{item.title}}</div>
+              <div style="margin-bottom: 10px" class="title">{{item.text}}</div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+      const task5 = createApp({
+        data() {
+          return {
+            siteList: [
+              {
+                id: 1,
+                imgSrc: "./task5/vue.png",
+                firstLink: "VUE-FRAMEWORK",
+                secondLink: "https://ru.vuejs.org/v2/guide/",
+                title: "Modern Framework",
+                text: "Approachable. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation. · Performant. Truly reactive, compiler- ",
+              },
+              {
+                id: 2,
+                imgSrc: "./task5/angular.png",
+                firstLink: "ANGULAR",
+                secondLink: "https://angular.io",
+                title: "ANGULAR",
+                text: "Angular lets you start small and supports you as your team and apps grow.",
+              },
+              {
+                id: 3,
+                imgSrc: "./task5/react.png",
+                firstLink: "REACT",
+                secondLink: "https://react.dev",
+                title: "Not Old and Not Young Framework",
+                text: "React is a community. It's a place where you can ask for help, find opportunities, and meet new friends.You will meet both developers and designers, beginners ...",
+              },
+              {
+                id: 4,
+                imgSrc: "./task5/nodejs.png",
+                firstLink: "NODE.JS",
+                secondLink: "https://nodejs.org",
+                title: "Not a Framework at all",
+                text: "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine. ",
+              },
+            ],
+          };
+        },
+        methods: {
+          test() {
+            return this.item;
+          },
+        },
+        computed: {},
+      });
+
+      task5.mount("#task5");
+    </script>
+  </body>
+</html>

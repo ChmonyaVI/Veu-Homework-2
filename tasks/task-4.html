@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #4</title>
+  </head>
+  <body>
+    <style></style>
+
+    <div class="wrapper">
+      <div id="task4">
+        <h2>Task 4</h2>
+        <div v-for="workerInfo in workerList2" :key="workerInfo.id">
+          <div>Name: {{workerInfo.name}}</div>
+          <div>Salary: {{workerInfo.salary}}</div>
+          <hr />
+        </div>
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task4 = createApp({
+        data() {
+          return {
+            workerList2: [
+              { id: 111, name: "Иванов", salary: 10000 },
+              { id: 112, name: "Петров", salary: 20000 },
+              { id: 113, name: "Сидоров", salary: 30000 },
+            ],
+          };
+        },
+        methods: {
+          workerLust() {
+            return workerInfo;
+          },
+        },
+        computed: {},
+      });
+
+      task4.mount("#task4");
+    </script>
+  </body>
+</html>

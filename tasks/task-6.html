@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #6</title>
+  </head>
+  <body>
+    <style>
+      .block-dish {
+        display: flex;
+        gap: 20px;
+      }
+      .first-block,
+      .second-block,
+      .third-block {
+        padding: 20px;
+        border: 1px solid red;
+      }
+      .title-column {
+        padding-bottom: 20px;
+      }
+      .block-action {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task6">
+        <label>Новое заказанное блюдо: <input type="text" v-model="newNameDish" /></label>
+        <button style="margin-left: 10px" type="submit" @click="addDish" class="button">Добавить</button>
+        <div style="margin-top: 20px" class="block-dish">
+          <div class="first-block">
+            <div class="title-column">Ожидание на готовку</div>
+            <div class="block-action" v-for="(item, index) in waitingList" :key="item.id">
+              <div>{{item.title}}</div>
+              <button @click="addInPreparingDish(index)" type="submit" class="button">Готовить</button>
+            </div>
+          </div>
+          <div class="second-block">
+            <div class="title-column">Ожидание на готовку</div>
+            <div class="block-action" v-for="(item, index) in preparingList" :key="item.id">
+              <div>{{item.title}}</div>
+              <button @click="addInReadyDish(index)" type="submit" class="button">Блюдо готово.</button>
+            </div>
+          </div>
+          <div class="third-block">
+            <div class="title-column">Ожидание на готовку</div>
+            <div class="block-action" v-for="(item, index) in readyList" :key="item.id">
+              <div>{{item.title}}</div>
+              <button @click="deleteDish(index)" type="submit" class="button">Подать.</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const { createApp } = Vue;
+
+      const task6 = createApp({
+        data() {
+          return {
+            newNameDish: null,
+            waitingList: [
+              { id: "1", title: "Голубцы" },
+              { id: "2", title: "Грибной суп" },
+            ],
+            preparingList: [
+              { id: "1", title: "Блинчики с сыром" },
+              { id: "2", title: "Салат 'Цезарь'" },
+              { id: "3", title: "Салат 'Греческий'" },
+            ],
+            readyList: [
+              { id: "1", title: "Борщ>" },
+              { id: "2", title: "Плов с овощами'" },
+            ],
+          };
+        },
+        methods: {
+          addDish() {
+            if (this.newNameDish) {
+              this.waitingList.push({
+                title: this.newNameDish,
+              });
+              this.newNameDish = null;
+            } else return console.log("Ошибка!");
+          },
+          addInPreparingDish(index) {
+            const dish = this.waitingList[index];
+            this.preparingList.push(dish);
+            this.waitingList.splice(index, 1);
+          },
+          addInReadyDish(index) {
+            const dish = this.preparingList[index];
+            this.readyList.push(dish);
+            this.preparingList.splice(index, 1);
+          },
+          deleteDish(index) {
+            this.readyList.splice(index, 1);
+          },
+        },
+        computed: {
+          waitingForCook() {
+            return this.item;
+          },
+          readyForCook() {
+            return this.item;
+          },
+        },
+      });
+
+      task6.mount("#task6");
+    </script>
+  </body>
+</html>

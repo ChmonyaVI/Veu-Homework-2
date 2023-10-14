@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Home Work #2</title>
+  </head>
+  <body>
+    <style>
+      .login__error-color {
+        transition: all 0.3s ease 0s;
+        color: white;
+        background-color: blue;
+      }
+      .login__else-color {
+        transition: all 0.3s ease 0s;
+        color: white;
+        background-color: red;
+      }
+      .login__usual-color {
+        transition: all 0.3s ease 0s;
+        color: black;
+        background-color: white;
+      }
+    </style>
+    <div class="wrapper">
+      <div id="task1">
+        <h2>Task 1</h2>
+        <label>Login <input type="text" v-model="userLogin" /></label><br />
+        <label>Password <input type="password" v-model="userPassword" /></label><br />
+        <button @click="handleSubmit()" type="submit" class="button">Go</button><br />
+        <div :class="['message', checkUser]">{{msg}}</div>
+        <img :src="img" />
+      </div>
+      <br />
+    </div>
+    <script>
+      const { createApp } = Vue;
+      const userData = [
+        {
+          login: "logan",
+          pass: "111",
+        },
+      ];
+      const task1 = createApp({
+        data() {
+          return {
+            userLogin: null,
+            userPassword: null,
+            img: null,
+            auth: null,
+            msg: null,
+          };
+        },
+        methods: {
+          handleSubmit() {
+            this.auth = null;
+            if (!this.userLogin || !this.userPassword) {
+              this.auth = false;
+              this.msg = "Логин или пароль не верный!";
+              return;
+            }
+            const regularExp = /^(.+)$/;
+            if (this.userLogin === "Иван" && regularExp.test(this.userPassword)) {
+              this.auth = "ivan";
+              this.msg = "Помилка. Логін або пароль введені не вірно";
+            } else {
+              this.auth = userData.find((user) => {
+                return user.login === this.userLogin && user.pass === this.userPassword;
+              });
+            }
+            if (this.auth && this.auth !== "ivan") {
+              this.img = "task1/Screenshot_1.png";
+            } else {
+              this.img = "";
+              this.msg = "Ощибка!";
+            }
+          },
+        },
+        computed: {
+          checkUser() {
+            if (this.auth === "ivan") {
+              return "login__error-color";
+            }
+            if (!this.auth) {
+              return "login__else-color";
+            }
+          },
+        },
+      });
+
+      task1.mount("#task1");
+    </script>
+  </body>
+</html>
